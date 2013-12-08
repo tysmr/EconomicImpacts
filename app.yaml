@@ -1,0 +1,10 @@
+application: economic-impacts-on-olympic
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /stylesheets
+  static_dir: stylesheets
+- url: /.*
+  script: economic_impact.py
