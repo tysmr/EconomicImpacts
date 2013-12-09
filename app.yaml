@@ -6,5 +6,7 @@ api_version: 1
 handlers:
 - url: /stylesheets
   static_dir: stylesheets
+- url: /data
+  static_dir: data
 - url: /.*
   script: economic_impact.py

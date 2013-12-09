@@ -4,21 +4,107 @@
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
-    {% for greeting in greetings %}
+    <!-- {% for greeting in greetings %}
       {% if greeting.author %}
         <b>{{ greeting.author.nickname }}</b> wrote:
       {% else %}
        An anonymous person wrote:
       {% endif %}
       <blockquote>{{ greeting.content|escape }}</blockquote>
-    {% endfor %}
-
-    <form action="/sign" method="post">
+    {% endfor %} -->
+    <h2>日本で開催された五輪の経済効果</h2>
+    <!-- <form action="/sign" method="post">
       <div><textarea name="content" rows="3" cols="60"></textarea></div>
       <div><input type="submit" value="Sign Guestbook"></div>
     </form>
 
-    <a href="{{ url }}">{{ url_linktext }}</a>
+    <a href="{{ url }}">{{ url_linktext }}</a> -->
+    
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
+<!--[if lte IE 8]>
+  <script src="r2d3.js" charset="utf-8"></script>
+  <script src="http://webmonarch.github.io/d34raphael/d3/lib/ie8/compat.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/sizzle/1.10.13/sizzle.js"></script><![endif]-->
+<!--[if gte IE 9]><!-->
+<script src="//d3js.org/d3.v3.js"></script>
+<!--<![endif]-->
+<script type="text/javascript">
+var margin = {top: 40, right: 20, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var formatPercent = d3.format(".0%");
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickFormat(formatPercent);
+
+// tipのせる系 => 
+// posi nega => http://bl.ocks.org/mbostock/2368837
+
+var margin = {top: 30, right: 10, bottom: 10, left: 10},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var x = d3.scale.linear()
+    .range([0, width])
+
+var y = d3.scale.ordinal()
+    .rangeRoundBands([0, height], .2);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("top");
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("/data/sapporo.csv", type, function(error, data) {
+  x.domain(d3.extent(data, function(d) { return d.value; })).nice();
+  y.domain(data.map(function(d) { return d.name; }));
+
+  svg.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", function(d) { return d.value < 0 ? "bar negative" : "bar positive"; })
+      .attr("x", function(d) { return x(Math.min(0, d.value)); })
+      .attr("y", function(d) { return y(d.name); })
+      .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
+      .attr("height", y.rangeBand());
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+    .append("line")
+      .attr("x1", x(0))
+      .attr("x2", x(0))
+      .attr("y2", height);
+
+});
+
+function type(d) {
+  d.value = +d.value;
+  return d;
+}
+
+</script>
   </body>
 </html>
