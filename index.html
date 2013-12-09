@@ -29,27 +29,11 @@
 <!--[if gte IE 9]><!-->
 <script src="//d3js.org/d3.v3.js"></script>
 <!--<![endif]-->
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.min.js"></script>
 <script type="text/javascript">
-var margin = {top: 40, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
 
-var formatPercent = d3.format(".0%");
 
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
-
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .tickFormat(formatPercent);
+// var formatPercent = d3.format(".0%");
 
 // tipのせる系 => 
 // posi nega => http://bl.ocks.org/mbostock/2368837
@@ -68,11 +52,27 @@ var xAxis = d3.svg.axis()
     .scale(x)
     .orient("top");
 
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    // .tickFormat(formatPercent);
+
+var tip = d3.tip()
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html(function(d) {
+      return "<strong>金額:</strong> <span style='color:red'>" + d.value + "</span><sstrong>円</strong>";
+    })
+
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
-  .append("g")
+    .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var yAxisStartPoint = [];
+
+svg.call(tip);
 
 d3.csv("/data/sapporo.csv", type, function(error, data) {
   x.domain(d3.extent(data, function(d) { return d.value; })).nice();
@@ -82,21 +82,37 @@ d3.csv("/data/sapporo.csv", type, function(error, data) {
       .data(data)
     .enter().append("rect")
       .attr("class", function(d) { return d.value < 0 ? "bar negative" : "bar positive"; })
-      .attr("x", function(d) { return x(Math.min(0, d.value)); })
+      .attr("x", function(d) { 
+        var _x = x(Math.min(0, d.value));
+        yAxisStartPoint.push(_x);
+        return _x; 
+      })
       .attr("y", function(d) { return y(d.name); })
       .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
-      .attr("height", y.rangeBand());
+      .attr("height", y.rangeBand())
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
 
   svg.append("g")
       .attr("class", "x axis")
       .call(xAxis);
 
-  svg.append("g")
+  svg.data(data)
+      .append("g")
       .attr("class", "y axis")
-    .append("line")
-      .attr("x1", x(0))
-      .attr("x2", x(0))
-      .attr("y2", height);
+      // .attr("x", yAxisStartPoint)
+      .attr("transform", "translate("+yAxisStartPoint[0]+",0)")
+      .call(yAxis)
+    // .append("line")
+    //   .attr("x1", x(0))
+    //   .attr("x2", x(0))
+    //   .attr("y2", height)
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Category");
 
 });
 
