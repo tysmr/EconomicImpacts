@@ -19,6 +19,7 @@
     </form>
 
     <a href="{{ url }}">{{ url_linktext }}</a> -->
+    <p><input type="radio" value="札幌" name="gorin">札幌<input type="radio" value="長野" name="gorin">長野</p>
     
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -73,8 +74,10 @@ var svg = d3.select("body").append("svg")
 var yAxisStartPoint = [];
 
 svg.call(tip);
+changeData("/data/sapporo.csv");
 
-d3.csv("/data/sapporo.csv", type, function(error, data) {
+function changeData(data){
+  d3.csv(data, type, function(error, data) {
   x.domain(d3.extent(data, function(d) { return d.value; })).nice();
   y.domain(data.map(function(d) { return d.name; }));
 
@@ -97,11 +100,18 @@ d3.csv("/data/sapporo.csv", type, function(error, data) {
       .attr("class", "x axis")
       .call(xAxis);
 
-  svg.data(data)
-      .append("g")
+  svg.append("g")
       .attr("class", "y axis")
       // .attr("x", yAxisStartPoint)
       .attr("transform", "translate("+yAxisStartPoint[0]+",0)")
+      // .attr("transform", function(d){
+      //   var xxx;
+      //   if(d){
+
+      //   }
+      //   var str = "transform("+  +",0)");
+      //   return str;
+      // })
       .call(yAxis)
     // .append("line")
     //   .attr("x1", x(0))
@@ -114,7 +124,8 @@ d3.csv("/data/sapporo.csv", type, function(error, data) {
       .style("text-anchor", "end")
       .text("Category");
 
-});
+  });
+}
 
 function type(d) {
   d.value = +d.value;
