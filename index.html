@@ -2,7 +2,7 @@
 <html>
 <head>
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
-  </head>
+</head>
   <body>
     <!-- {% for greeting in greetings %}
       {% if greeting.author %}
@@ -19,7 +19,13 @@
     </form>
 
     <a href="{{ url }}">{{ url_linktext }}</a> -->
-    <p><input type="radio" value="札幌" name="gorin">札幌<input type="radio" value="長野" name="gorin">長野</p>
+    <p>
+      <input id="tokyo" type="radio" value="tokyo" name="gorin" checked="checked" />夏季・東京(1964)
+      <input id="sapporo" type="radio" value="sapporo" name="gorin"/>冬季・札幌(1972)
+      <input id="nagano" type="radio" value="nagano" name="gorin" />冬季・長野(1998)
+      
+    </p>
+    <div id="content"></div>
     
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -30,7 +36,7 @@
 <!--[if gte IE 9]><!-->
 <script src="//d3js.org/d3.v3.js"></script>
 <!--<![endif]-->
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.min.js"></script>
+<script src="//labratrevenge.com/d3-tip/javascripts/d3.tip.min.js"></script>
 <script type="text/javascript">
 
 
@@ -39,7 +45,7 @@
 // tipのせる系 => 
 // posi nega => http://bl.ocks.org/mbostock/2368837
 
-var margin = {top: 30, right: 10, bottom: 10, left: 10},
+var margin = {top: 30, right: 100, bottom: 10, left: 100},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
@@ -65,7 +71,7 @@ var tip = d3.tip()
       return "<strong>金額:</strong> <span style='color:red'>" + d.value + "</span><sstrong>円</strong>";
     })
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("div#content").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -74,21 +80,59 @@ var svg = d3.select("body").append("svg")
 var yAxisStartPoint = [];
 
 svg.call(tip);
-changeData("/data/sapporo.csv");
 
-function changeData(data){
+initLoadData("/data/tokyo.csv");
+// x.domain(d3.extent(-100000, 200000));
+function initLoadData(data){
   d3.csv(data, type, function(error, data) {
-  x.domain(d3.extent(data, function(d) { return d.value; })).nice();
+  x.domain(d3.extent(data, function(d) { return d.scale; })).nice();
   y.domain(data.map(function(d) { return d.name; }));
 
   svg.selectAll(".bar")
       .data(data)
-    .enter().append("rect")
+      .enter().append("rect")
       .attr("class", function(d) { return d.value < 0 ? "bar negative" : "bar positive"; })
       .attr("x", function(d) { 
         var _x = x(Math.min(0, d.value));
         yAxisStartPoint.push(_x);
         return _x; 
+      })
+      .attr("y", function(d) { return y(d.name); })
+      .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
+      .attr("height", y.rangeBand())
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate("+yAxisStartPoint[0]+",0)")
+      .call(yAxis)
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Category");
+
+  });
+}
+
+function changeData(data){
+  console.log("----------");
+  d3.csv(data, type, function(error, data) {
+  x.domain(d3.extent(data, function(d) { return d.scale; })).nice();
+  y.domain(data.map(function(d) { return d.name; }));
+  // svg.selectAll("g").remove();
+
+  svg.selectAll(".bar")
+      .data(data)
+    // .enter().append("rect")
+      .attr("class", function(d) { console.log(d.value);return d.value < 0 ? "bar negative" : "bar positive"; })
+      .attr("x", function(d) { return x(Math.min(0, d.value));
       })
       .attr("y", function(d) { return y(d.name); })
       .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
@@ -131,6 +175,14 @@ function type(d) {
   d.value = +d.value;
   return d;
 }
+$( 'input[name="gorin"]:radio' ).change( function() {  
+  // $('div#content').empty();
+  $('g.x').empty();
+  $('g.y').empty();
+  changeData('/data/'+$('input[name="gorin"]:checked').val()+'.csv');
+  
+});
+
 
 </script>
   </body>
