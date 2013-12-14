@@ -25,6 +25,19 @@
       <input id="nagano" type="radio" value="nagano" name="gorin" />冬季・長野(1998)
       
     </p>
+    <div id="tokyo-gorin">
+      <h4>東京五輪</h4>
+      <p>３年間のGDP増減率</p>
+    </div>
+    <svg width="960" height="120" 
+     viewPort="0 0 120 120" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+
+      <circle id="circle_tokyo" cx="60" cy="60" r="50" fill="pink"/>
+      <circle id="circle_sapporo" cx="180" cy="60" r="50" fill="yellow" stroke-width="5"/>
+      <circle id="circle_nagano" cx="300" cy="60" r="50" fill="blue" stroke-width="5"/>
+    </svg>
+
     <div id="content"></div>
     
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -182,7 +195,9 @@ $( 'input[name="gorin"]:radio' ).change( function() {
   changeData('/data/'+$('input[name="gorin"]:checked').val()+'.csv');
   
 });
-
+$('circle').on('mouseover', function() {
+  window.alert('impact of'+ $(this).attr('id'));
+});
 
 </script>
   </body>
