@@ -52,3 +52,20 @@ body {
   left: 0;
 }
 
+.gorin-choice {
+  isplay: -webkit-box;
+    display: -ms-flexbox;
+    display: -moz-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -ms-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+}
+
+.gorin {
+    -webkit-box-flex: 1;
+    -ms-box-flex: 1;
+    -ms-flex:1;
+    -moz-box-flex: 1;
+    flex:1;
+}

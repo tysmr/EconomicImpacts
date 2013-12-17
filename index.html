@@ -19,23 +19,50 @@
     </form>
 
     <a href="{{ url }}">{{ url_linktext }}</a> -->
-    <p>
+    <!-- <p>
       <input id="tokyo" type="radio" value="tokyo" name="gorin" checked="checked" />夏季・東京(1964)
       <input id="sapporo" type="radio" value="sapporo" name="gorin"/>冬季・札幌(1972)
       <input id="nagano" type="radio" value="nagano" name="gorin" />冬季・長野(1998)
       
-    </p>
-    <div id="tokyo-gorin">
-      <h4>東京五輪</h4>
-      <p>３年間のGDP増減率</p>
+    </p> -->
+    <div class="gorin-choice">
+      <div class="gorin" align="center">
+        <h4>夏季・東京五輪(1964)</h4>
+        <p>３年間のGDP増減率</p>
+        <svg width="120" height="120" 
+       viewPort="0 0 120 120" version="1.1"
+       xmlns="http://www.w3.org/2000/svg">
+          <circle id="tokyo" cx="60" cy="60" r="50" fill="gold"/>
+        </svg>
+      </div>
+
+      <div class="gorin" align="center">
+        <h4>冬季・札幌五輪(1972)</h4>
+        <p>３年間のGDP増減率</p>
+        <svg width="120" height="120" 
+       viewPort="0 0 120 120" version="1.1"
+       xmlns="http://www.w3.org/2000/svg">
+          <circle id="sapporo" cx="60" cy="60" r="50" fill="silver"/>
+        </svg>
+      </div>
+
+      <div class="gorin" align="center">
+        <h4>冬季・長野五輪(1998)</h4>
+        <p>３年間のGDP増減率</p>
+        <svg width="120" height="120" 
+       viewPort="0 0 120 120" version="1.1"
+       xmlns="http://www.w3.org/2000/svg">
+          <circle id="nagano" cx="60" cy="60" r="50" fill="coral"/>
+        </svg>
+      </div>
+
     </div>
     <svg width="960" height="120" 
      viewPort="0 0 120 120" version="1.1"
      xmlns="http://www.w3.org/2000/svg">
 
-      <circle id="circle_tokyo" cx="60" cy="60" r="50" fill="pink"/>
-      <circle id="circle_sapporo" cx="180" cy="60" r="50" fill="yellow" stroke-width="5"/>
-      <circle id="circle_nagano" cx="300" cy="60" r="50" fill="blue" stroke-width="5"/>
+      
+    
     </svg>
 
     <div id="content"></div>
@@ -196,7 +223,11 @@ $( 'input[name="gorin"]:radio' ).change( function() {
   
 });
 $('circle').on('mouseover', function() {
-  window.alert('impact of'+ $(this).attr('id'));
+  // window.alert('impact of'+ $(this).attr('id'));
+  $('g.x').empty();
+  $('g.y').empty();
+  console.log($(this).attr('id'));
+  changeData('/data/'+$(this).attr('id')+'.csv');
 });
 
 </script>
