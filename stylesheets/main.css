@@ -69,3 +69,10 @@ body {
     -moz-box-flex: 1;
     flex:1;
 }
+
+/*-------------------------headerの指定*/ 
+header {
+  height: 30px;
+  margin: -30px;
+  padding: 10px;
+}
