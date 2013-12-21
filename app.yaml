@@ -8,5 +8,7 @@ handlers:
   static_dir: stylesheets
 - url: /data
   static_dir: data
+- url: /js
+  static_dir: js
 - url: /.*
   script: economic_impact.py
