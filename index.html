@@ -60,11 +60,11 @@
             <p>実績1959-1968</p>
             <div id="tokyo-svg">
             </div>
-            <svg width="120" height="120" 
+            <!-- <svg width="120" height="120" 
            viewPort="0 0 120 120" version="1.1"
            xmlns="http://www.w3.org/2000/svg">
               <circle id="tokyo" cx="60" cy="60" r="50" fill="gold"/>
-            </svg>
+            </svg> -->
           </div>
         </div>
 
@@ -77,11 +77,11 @@
             <p>実績1966-1975</p>
             <div id="sapporo-svg">
             </div>
-            <svg width="120" height="120" 
+            <!-- <svg width="120" height="120" 
            viewPort="0 0 120 120" version="1.1"
            xmlns="http://www.w3.org/2000/svg">
               <circle id="sapporo" cx="60" cy="60" r="50" fill="silver"/>
-            </svg>
+            </svg> -->
           </div>
        </div>
 
@@ -94,11 +94,11 @@
             <p>実績1991-2000</p>
             <div id="nagano-svg">
             </div>
-            <svg width="120" height="120" 
+            <!-- <svg width="120" height="120" 
            viewPort="0 0 120 120" version="1.1"
            xmlns="http://www.w3.org/2000/svg">
               <circle id="nagano" cx="60" cy="60" r="50" fill="coral"/>
-            </svg>
+            </svg> -->
           </div>
         </div>
       </div>
@@ -133,51 +133,46 @@
   var w,h;
   var tokyo_svg = d3.select("div#tokyo-svg").append("svg")
   .attr("width","100%")
-  .attr("height","100%")
-  .append("g")
-  .attr("transform", "translate(100,100)");
-
-  d3.csv("/data/sumdata.csv", type, function(error, data) {
-    tokyo_svg.selectAll()
-  .data(data)
-  .enter()
-  .append("circle")
-  .attr("fill","gold")
-  .attr("r",function(d, i){return Math.sqrt(d.tokyo/1000);})
-  .attr("cx",function(d, i){return d.position;})
-  .attr("cy","100");
-  });
+  .attr("height","200px")
+  // .append("g")
+  // .attr("transform", "translate(100,100)");
 
   var sapporo_svg = d3.select("div#sapporo-svg").append("svg")
   .attr("width","100%")
-  .attr("height","100%")
-  .append("g")
-  .attr("transform", "translate(100,100)");
+  .attr("height","200px")
+  // .append("g")
+  // .attr("transform", "translate(100,100)");
+
+  var nagano_svg = d3.select("div#nagano-svg").append("svg")
+  .attr("width","100%")
+  .attr("height","200px")
+  // .append("g")
+  // .attr("transform", "translate(100,100)");
 
   d3.csv("/data/sumdata.csv", type, function(error, data) {
-    sapporo_svg.selectAll()
+    tokyo_svg.selectAll()
+  .data(data).enter()
+  .append("circle")
+  .attr("fill","gold")
+  .attr("r",function(d, i){return Math.sqrt(d.tokyo/700);})
+  .attr("cx",function(d, i){return d.position;})
+  .attr("cy","100");
+
+  sapporo_svg.selectAll()
   .data(data)
   .enter()
   .append("circle")
   .attr("fill","silver")
-  .attr("r",function(d, i){return Math.sqrt(d.sapporo/1000);})
+  .attr("r",function(d, i){return Math.sqrt(d.sapporo/700);})
   .attr("cx",function(d, i){return d.position;})
   .attr("cy","100");
-  });
 
-  var nagano_svg = d3.select("div#nagano-svg").append("svg")
-  .attr("width","100%")
-  .attr("height","100%")
-  .append("g")
-  .attr("transform", "translate(100,100)");
-
-  d3.csv("/data/sumdata.csv", type, function(error, data) {
-    nagano_svg.selectAll()
+  nagano_svg.selectAll()
   .data(data)
   .enter()
   .append("circle")
   .attr("fill","coral")
-  .attr("r",function(d, i){return Math.sqrt(d.nagano/1000);})
+  .attr("r",function(d, i){return Math.sqrt(d.nagano/700);})
   .attr("cx",function(d, i){return d.position;})
   .attr("cy","100");
   });
