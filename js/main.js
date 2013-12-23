@@ -41,8 +41,52 @@ var yAxisStartPoint = [];
 
 svg.call(tip);
 
-initLoadData("/data/tokyo.csv");
+initLoadData("/data/tokyo_5degree.csv");
 // x.domain(d3.extent(-100000, 200000));
+
+function changeCityData(data, city){
+	var city_margin = {top: 30, right: 10, bottom: 10, left: 10};
+	
+	var city_svg = d3.select('div#'+city+'-svg').append("svg")
+	.attr("width","100%")
+	.attr("height","600px")
+	.append("g")
+    .attr("transform", "translate(" + city_margin.left + "," + city_margin.top + ")");
+
+    d3.csv(data, type, function(error, data) {
+	  x.domain(d3.extent(data, function(d) { return d.scale; })).nice();
+	  y.domain(data.map(function(d) { return d.name; }));
+
+	  city_svg.selectAll(".bar")
+      .data(data)
+      .enter().append("rect")
+      .attr("class", function(d) { return d.value < 0 ? "bar negative" : "bar positive"; })
+      .attr("x", function(d) { return x(Math.min(0, d.value));})
+      .attr("y", function(d) { return y(d.name); })
+      .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
+      .attr("height", y.rangeBand())
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
+
+  city_svg.append("g")
+      .attr("class", "x axis")
+      .call(xAxis);
+
+  city_svg.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(0,0)")
+      .call(yAxis)
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Category");
+
+  });
+
+}
+
 function initLoadData(data){
   d3.csv(data, type, function(error, data) {
   x.domain(d3.extent(data, function(d) { return d.scale; })).nice();
@@ -142,10 +186,35 @@ $( 'input[name="gorin"]:radio' ).change( function() {
   changeData('/data/'+$('input[name="gorin"]:checked').val()+'.csv');
   
 });
-$('circle').on('mouseover', function() {
+// $('circle').on('mouseover', function() {
+//   // window.alert('impact of'+ $(this).attr('id'));
+//   $('g.x').empty();
+//   $('g.y').empty();
+//   console.log($(this).attr('id'));
+//   changeData('/data/'+$(this).attr('id')+'.csv');
+// });
+
+$('div#tokyo-svg').on('click', function() {
   // window.alert('impact of'+ $(this).attr('id'));
   $('g.x').empty();
   $('g.y').empty();
   console.log($(this).attr('id'));
-  changeData('/data/'+$(this).attr('id')+'.csv');
+  // changeData('/data/tokyo_5degree.csv');
+  changeCityData('/data/tokyo_5degree.csv',"tokyo");
+});
+$('div#sapporo-svg').on('click', function() {
+  // window.alert('impact of'+ $(this).attr('id'));
+  $('g.x').empty();
+  $('g.y').empty();
+  console.log($(this).attr('id'));
+  // changeData('/data/sapporo_5degree.csv');
+  changeCityData('/data/sapporo_5degree.csv',"sapporo");
+});
+$('div#nagano-svg').on('click', function() {
+  // window.alert('impact of'+ $(this).attr('id'));
+  $('g.x').empty();
+  $('g.y').empty();
+  console.log($(this).attr('id'));
+  // changeData('/data/nagano_5degree.csv');
+  changeCityData('/data/nagano_5degree.csv',"nagano");
 });
