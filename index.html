@@ -130,22 +130,28 @@
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
 <script type="text/javascript">
-  var w,h;
   var tokyo_svg = d3.select("div#tokyo-svg").append("svg")
+  .attr("class","selected")
   .attr("width","100%")
   .attr("height","200px")
+  .on('mouseover', function(){ d3.select("div#tokyo-svg").style({"background-color":'#eee'})})
+  .on('mouseout', function(){ d3.select("div#tokyo-svg").style({"background-color":'white'})});
   // .append("g")
   // .attr("transform", "translate(100,100)");
 
   var sapporo_svg = d3.select("div#sapporo-svg").append("svg")
   .attr("width","100%")
   .attr("height","200px")
+  .on('mouseover', function(){ d3.select("div#sapporo-svg").style({"background-color":'#eee'})})
+  .on('mouseout', function(){ d3.select("div#sapporo-svg").style({"background-color":'white'})});
   // .append("g")
   // .attr("transform", "translate(100,100)");
 
   var nagano_svg = d3.select("div#nagano-svg").append("svg")
   .attr("width","100%")
   .attr("height","200px")
+  .on('mouseover', function(){ d3.select("div#nagano-svg").style({"background-color":'#eee'})})
+  .on('mouseout', function(){ d3.select("div#nagano-svg").style({"background-color":'white'})});
   // .append("g")
   // .attr("transform", "translate(100,100)");
 
