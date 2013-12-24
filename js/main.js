@@ -5,9 +5,9 @@ var tip = d3.tip()
     .html(function(d) {
       return "<strong>金額:</strong> <span style='color:red'>" + d.value + "</span><strong>円</strong>";
     });
-    var legend_tokyo = [{label:"推定値:1959-1968",value:716767.55,color:"#555"},{label:"実績値:1959-1968",value:887124.40,color:"gold"}];
-    var legend_sapporo = [{label:"推定値:1966-1975",value:434097.75,color:"#555"},{label:"実績値:1966-1975",value:800179.50,color:"silver"}];
-    var legend_nagano = [{label:"推定値:1999-2000",value:5007308.63,color:"#555"},{label:"実績値:1999-2000",value:4731501.80,color:"coral"}];
+    var legend_tokyo = [{label:"推定値:1959-1968",value:716767.55,color:"#eee"},{label:"実績値:1959-1968",value:887124.40,color:"gold"}];
+    var legend_sapporo = [{label:"推定値:1966-1975",value:434097.75,color:"#eee"},{label:"実績値:1966-1975",value:800179.50,color:"silver"}];
+    var legend_nagano = [{label:"推定値:1999-2000",value:5007308.63,color:"#eee"},{label:"実績値:1999-2000",value:4731501.80,color:"coral"}];
     var svg_width = $('div#tokyo-svg').width();
 addForcedCircle("div#tokyo-svg", svg_width, "200", legend_tokyo);
 addForcedCircle("div#sapporo-svg", svg_width, "200", legend_sapporo);
@@ -97,7 +97,8 @@ function addForcedCircle(targetDOM, width, height, legend){
   anchorNode.append("svg:circle").attr("r", 0).style("fill", "#FFF");
   anchorNode.append("svg:text").text(function(d, i) {
     return i % 2 == 0 ? "" : d.node.label
-  }).style("fill", "#555").style("font-family", "Arial").style("font-size", 12);
+  }).style("fill", "#555").style("font-family", "Arial").style("font-size", 16).style("stroke","white").style("stroke-width",.01)
+  .style("text-shadow","1px 1px 1px rgba(194,194,194, .5), -1px -1px 1px rgba(194,194,194, .5), -1px 1px 1px rgba(194,194,194, .5), 1px -1px 1px rgba(194,194,194, .5)");
 
   var updateLink = function() {
     this.attr("x1", function(d) {
