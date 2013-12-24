@@ -1,11 +1,159 @@
 
-
 var tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function(d) {
-      return "<strong>金額:</strong> <span style='color:red'>" + d.value + "</span><sstrong>円</strong>";
-    })
+      return "<strong>金額:</strong> <span style='color:red'>" + d.value + "</span><strong>円</strong>";
+    });
+    var legend_tokyo = [{label:"推定値:1959-1968",value:716767.55,color:"#555"},{label:"実績値:1959-1968",value:887124.40,color:"gold"}];
+    var legend_sapporo = [{label:"推定値:1966-1975",value:434097.75,color:"#555"},{label:"実績値:1966-1975",value:800179.50,color:"silver"}];
+    var legend_nagano = [{label:"推定値:1999-2000",value:5007308.63,color:"#555"},{label:"実績値:1999-2000",value:4731501.80,color:"coral"}];
+    var svg_width = $('div#tokyo-svg').width();
+addForcedCircle("div#tokyo-svg", svg_width, "200", legend_tokyo);
+addForcedCircle("div#sapporo-svg", svg_width, "200", legend_sapporo);
+addForcedCircle("div#nagano-svg", svg_width, "200", legend_nagano);
+
+
+function addForcedCircle(targetDOM, width, height, legend){
+  var labelDistance = 20;
+
+  var vis = d3.select(targetDOM).append("svg:svg").attr("width", width).attr("height", height)
+  .on('mouseover', function(){ d3.select(targetDOM).style({"background-color":'#eee'})})
+  .on('mouseout', function(){ d3.select(targetDOM).style({"background-color":'white'})});
+
+  var nodes = [];
+  var labelAnchors = [];
+  var labelAnchorLinks = [];
+  var links = [];
+
+  for(var i = 0; i < legend.length; i++) {
+    var node = {
+      label : legend[i].label,
+      value : legend[i].value,
+      color : legend[i].color
+    };
+    nodes.push(node);
+    labelAnchors.push({
+      node : node
+    });
+    labelAnchors.push({
+      node : node
+    });
+  };
+
+  for(var i = 0; i < nodes.length; i++) {
+    for(var j = 0; j < i; j++) {
+      // if(Math.random() > .95)
+        links.push({
+          source : i,
+          target : j,
+          weight : Math.random()
+        });
+    }
+    labelAnchorLinks.push({
+      source : i * 2,
+      target : i * 2 + 1,
+      weight : 1
+    });
+  };
+
+  var force = d3.layout.force().size([width, height]).nodes(nodes).links(links).gravity(1).linkDistance(50).charge(-3000).linkStrength(function(x) {
+    return x.weight * 10
+  });
+
+
+  force.start();
+
+  var force2 = d3.layout.force().nodes(labelAnchors).links(labelAnchorLinks).gravity(0).linkDistance(0).linkStrength(8).charge(-100).size([width, height]);
+  force2.start();
+
+  var link = vis.selectAll("line.link").data(links).enter().append("svg:line").attr("class", "link").style("stroke", "#CCC");
+
+  var node = vis.selectAll("g.node")
+  .data(force.nodes()).enter()
+  .append("svg:g")
+  .attr("class", "node");
+
+  node.append("svg:circle")
+  .attr("r", function(d, i){ return Math.sqrt(d.value/700);})
+  .style("fill", function(d, i){return d.color;})
+  .style("stroke", "#FFF")
+  .style("stroke-width", 3);
+  node.call(force.drag);
+
+  // d3.csv("/data/sumdata.csv", function(error, data) {
+  //   node.selectAll().data(data)
+  //   .append("svg:circle")
+  //   .attr("r",function(d, i){return Math.sqrt(d.tokyo/700);})
+  //   .style("fill", "#555")
+  //   .style("stroke", "#FFF")
+  //   .style("stroke-width", 3);
+  //   node.call(force.drag);
+  // }
+
+  var anchorLink = vis.selectAll("line.anchorLink").data(labelAnchorLinks).enter().append("svg:line").attr("class", "anchorLink").style("stroke", "#999");
+
+  var anchorNode = vis.selectAll("g.anchorNode").data(force2.nodes()).enter().append("svg:g").attr("class", "anchorNode");
+  anchorNode.append("svg:circle").attr("r", 0).style("fill", "#FFF");
+  anchorNode.append("svg:text").text(function(d, i) {
+    return i % 2 == 0 ? "" : d.node.label
+  }).style("fill", "#555").style("font-family", "Arial").style("font-size", 12);
+
+  var updateLink = function() {
+    this.attr("x1", function(d) {
+      return d.source.x;
+    }).attr("y1", function(d) {
+      return d.source.y;
+    }).attr("x2", function(d) {
+      return d.target.x;
+    }).attr("y2", function(d) {
+      return d.target.y;
+    });
+
+  }
+
+  var updateNode = function() {
+    this.attr("transform", function(d) {
+      return "translate(" + d.x + "," + d.y + ")";
+    });
+
+  }
+
+
+  force.on("tick", function() {
+
+    force2.start();
+
+    node.call(updateNode);
+
+    anchorNode.each(function(d, i) {
+      if(i % 2 == 0) {
+        d.x = d.node.x;
+        d.y = d.node.y;
+      } else {
+        var b = this.childNodes[1].getBBox();
+
+        var diffX = d.x - d.node.x;
+        var diffY = d.y - d.node.y;
+
+        var dist = Math.sqrt(diffX * diffX + diffY * diffY);
+
+        var shiftX = b.width * (diffX - dist) / (dist * 2);
+        shiftX = Math.max(-b.width, Math.min(0, shiftX));
+        var shiftY = 5;
+        this.childNodes[1].setAttribute("transform", "translate(" + shiftX + "," + shiftY + ")");
+      }
+    });
+
+
+    anchorNode.call(updateNode);
+
+    link.call(updateLink);
+    anchorLink.call(updateLink);
+
+  });
+
+}
 
 
 function changeCityData(data, city){

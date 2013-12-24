@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>東京・札幌・長野、３五輪の業界別経済効果～五輪でもうかる人、もうからない人～</title>
+    <title>東京・札幌・長野、3五輪の業界別経済効果～五輪でもうかる人、もうからない人～</title>
 
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
     <!-- Bootstrap core CSS -->
@@ -61,7 +61,6 @@
           <p><a class="btn btn-default" href="http://ja.wikipedia.org/wiki/%E6%9D%B1%E4%BA%AC%E3%82%AA%E3%83%AA%E3%83%B3%E3%83%94%E3%83%83%E3%82%AF" role="button">View details &raquo;</a></p>
           <hr>
           <div class="gorin" align="center">
-            <p>実績1959-1968</p>
             <div id="tokyo-svg">
             </div>
             <hr>
@@ -81,7 +80,6 @@
           <p><a class="btn btn-default" href="http://ja.wikipedia.org/wiki/%E6%9C%AD%E5%B9%8C%E3%82%AA%E3%83%AA%E3%83%B3%E3%83%94%E3%83%83%E3%82%AF" role="button">More Info &raquo;</a></p>
           <hr>
           <div class="gorin" align="center">
-            <p>実績1966-1975</p>
             <div id="sapporo-svg">
             </div>
             <hr>
@@ -102,7 +100,6 @@
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
           <hr>
           <div class="gorin" align="center">
-            <p>実績1991-2000</p>
             <div id="nagano-svg">
             </div>
             <hr>
@@ -169,60 +166,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script type="text/javascript">
-  var tokyo_svg = d3.select("div#tokyo-svg").append("svg")
-  .attr("class","selected")
-  .attr("width","100%")
-  .attr("height","200px")
-  .on('mouseover', function(){ d3.select("div#tokyo-svg").style({"background-color":'#eee'})})
-  .on('mouseout', function(){ d3.select("div#tokyo-svg").style({"background-color":'white'})});
-  // .append("g")
-  // .attr("transform", "translate(100,100)");
 
-  var sapporo_svg = d3.select("div#sapporo-svg").append("svg")
-  .attr("width","100%")
-  .attr("height","200px")
-  .on('mouseover', function(){ d3.select("div#sapporo-svg").style({"background-color":'#eee'})})
-  .on('mouseout', function(){ d3.select("div#sapporo-svg").style({"background-color":'white'})});
-  // .append("g")
-  // .attr("transform", "translate(100,100)");
-
-  var nagano_svg = d3.select("div#nagano-svg").append("svg")
-  .attr("width","100%")
-  .attr("height","200px")
-  .on('mouseover', function(){ d3.select("div#nagano-svg").style({"background-color":'#eee'})})
-  .on('mouseout', function(){ d3.select("div#nagano-svg").style({"background-color":'white'})});
-  // .append("g")
-  // .attr("transform", "translate(100,100)");
-
-  d3.csv("/data/sumdata.csv", type, function(error, data) {
-    tokyo_svg.selectAll()
-  .data(data).enter()
-  .append("circle")
-  .attr("fill","gold")
-  .attr("r",function(d, i){return Math.sqrt(d.tokyo/700);})
-  .attr("cx",function(d, i){return d.position;})
-  .attr("cy","100");
-
-  sapporo_svg.selectAll()
-  .data(data)
-  .enter()
-  .append("circle")
-  .attr("fill","silver")
-  .attr("r",function(d, i){return Math.sqrt(d.sapporo/700);})
-  .attr("cx",function(d, i){return d.position;})
-  .attr("cy","100");
-
-  nagano_svg.selectAll()
-  .data(data)
-  .enter()
-  .append("circle")
-  .attr("fill","coral")
-  .attr("r",function(d, i){return Math.sqrt(d.nagano/700);})
-  .attr("cx",function(d, i){return d.position;})
-  .attr("cy","100");
-  });
-  
-</script>
 </body>
 </html>
