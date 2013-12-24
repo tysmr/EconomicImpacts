@@ -110,23 +110,18 @@ function addForcedCircle(targetDOM, width, height, legend){
     }).attr("y2", function(d) {
       return d.target.y;
     });
-
   }
 
   var updateNode = function() {
     this.attr("transform", function(d) {
       return "translate(" + d.x + "," + d.y + ")";
     });
-
   }
-
 
   force.on("tick", function() {
 
     force2.start();
-
     node.call(updateNode);
-
     anchorNode.each(function(d, i) {
       if(i % 2 == 0) {
         d.x = d.node.x;
@@ -146,14 +141,11 @@ function addForcedCircle(targetDOM, width, height, legend){
       }
     });
 
-
     anchorNode.call(updateNode);
-
     link.call(updateLink);
     anchorLink.call(updateLink);
 
   });
-
 }
 
 
@@ -163,7 +155,7 @@ function changeCityData(data, city){
   	var city_svg = d3.select('div#'+city+'-svg').append("svg")
     .attr("class", city+"_graph")
   	.attr("width","100%")
-  	.attr("height","600px")
+  	.attr("height","400")
   	.append("g")
     .attr("transform", "translate(" + city_margin.left + "," + city_margin.top + ")");
 
@@ -171,7 +163,7 @@ function changeCityData(data, city){
 
     d3.csv(data, type, function(error, data) {
     var city_x = d3.scale.linear().range([0, $('div#'+city+'-svg').width()]);
-    var city_y = d3.scale.ordinal().rangeRoundBands([0, 600-10], .2);
+    var city_y = d3.scale.ordinal().rangeRoundBands([0, 400-20], .2);
 	  city_x.domain(d3.extent(data, function(d) { return d.value; })).nice();
 	  city_y.domain(data.map(function(d) { return d.name; }));
 
