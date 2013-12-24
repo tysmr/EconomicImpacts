@@ -4949,7 +4949,8 @@ a.list-group-item.active > .badge,
     padding-left: 60px;
   }
   .jumbotron h1 {
-    font-size: 63px;
+    /*font-size: 63px;*/
+    font-size: 53px;
   }
 }
 
