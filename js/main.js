@@ -9,6 +9,7 @@ var tip = d3.tip()
     var legend_sapporo = [{label:"推定値:1966-1975",value:434097.75,color:"#eee"},{label:"実績値:1966-1975",value:800179.50,color:"silver"}];
     var legend_nagano = [{label:"推定値:1999-2000",value:5007308.63,color:"#eee"},{label:"実績値:1999-2000",value:4731501.80,color:"coral"}];
     var svg_width = $('div#tokyo-svg').width();
+
 addForcedCircle("div#tokyo-svg", svg_width, "200", legend_tokyo);
 addForcedCircle("div#sapporo-svg", svg_width, "200", legend_sapporo);
 addForcedCircle("div#nagano-svg", svg_width, "200", legend_nagano);
@@ -97,8 +98,9 @@ function addForcedCircle(targetDOM, width, height, legend){
   anchorNode.append("svg:circle").attr("r", 0).style("fill", "#FFF");
   anchorNode.append("svg:text").text(function(d, i) {
     return i % 2 == 0 ? "" : d.node.label
-  }).style("fill", "#555").style("font-family", "Arial").style("font-size", 16).style("stroke","white").style("stroke-width",.01)
-  .style("text-shadow","1px 1px 1px rgba(194,194,194, .5), -1px -1px 1px rgba(194,194,194, .5), -1px 1px 1px rgba(194,194,194, .5), 1px -1px 1px rgba(194,194,194, .5)");
+  }).style("fill", "#555").style("font-family", "Arial").style("font-size", 16)
+  // .style("stroke","white").style("stroke-width",.01)
+  // .style("text-shadow","1px 1px 1px rgba(194,194,194, .5), -1px -1px 1px rgba(194,194,194, .5), -1px 1px 1px rgba(194,194,194, .5), 1px -1px 1px rgba(194,194,194, .5)");
 
   var updateLink = function() {
     this.attr("x1", function(d) {
@@ -175,6 +177,7 @@ function changeCityData(data, city){
       .data(data)
       .enter().append("rect")
       .attr("class", function(d) { return d.value < 0 ? "bar negative" : "bar positive"; })
+      .attr("class", "bar-"+city)
       .attr("x", function(d) { 
         city_yAxis_position.push(city_x(Math.min(0, d.value)));
         return city_x(Math.min(0, d.value));

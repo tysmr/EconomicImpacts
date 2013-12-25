@@ -21,6 +21,22 @@ body {
   fill: orangered ;
 }
 
+.bar-tokyo  {
+  fill: gold;
+}
+.bar-sapporo {
+  fill: silver;
+}
+.bar-nagano {
+  fill: coral;
+}
+
+
+.bar-tokyo:hover, .bar-sapporo:hover, .bart-nagano {
+  fill: orangered;
+}
+
+
 .x.axis path {
   display: none;
 }
