@@ -21,8 +21,13 @@ body {
   fill: orangered ;
 }
 
-.bar-tokyo  {
+.bar-tokyo.top  {
   fill: gold;
+}
+.bar-tokyo.bottom  {
+  /*fill: gold;*/
+  /*fill:url(#linepattern);*/
+  background: linear-gradient(38deg, white, white 48%, #7EBA03 49%, #7EBA03 51%, white 52%, white)
 }
 .bar-sapporo {
   fill: silver;
@@ -103,3 +108,7 @@ header {
  background-color: #000066;
  border-color: #000066;
 }
+
+/*.bottom {
+  fill:url(#linepattern);
+}*/

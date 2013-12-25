@@ -176,8 +176,10 @@ function changeCityData(data, city){
 	  city_svg.selectAll(".bar")
       .data(data)
       .enter().append("rect")
-      .attr("class", function(d) { return d.value < 0 ? "bar negative" : "bar positive"; })
-      .attr("class", "bar-"+city)
+      .attr("class", function(d) { 
+        return d.value < 0 ? "bar negative bar-"+city+" "+d.degree : "bar positive bar-"+city+" "+d.degree; 
+      })
+      // .attr("class", "bar-"+city)
       .attr("x", function(d) { 
         city_yAxis_position.push(city_x(Math.min(0, d.value)));
         return city_x(Math.min(0, d.value));
