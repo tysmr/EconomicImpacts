@@ -27,13 +27,27 @@ body {
 .bar-tokyo.bottom  {
   /*fill: gold;*/
   /*fill:url(#linepattern);*/
-  background: linear-gradient(38deg, white, white 48%, #7EBA03 49%, #7EBA03 51%, white 52%, white)
+  /*background: linear-gradient(38deg, white, white 48%, #7EBA03 49%, #7EBA03 51%, white 52%, white)*/
+  fill:none;
+  stroke:gold;
+  stroke-width:3;
 }
-.bar-sapporo {
+.bar-sapporo.top {
   fill: silver;
 }
-.bar-nagano {
+.bar-sapporo.bottom {
+  fill:none;
+  stroke:silver;
+  stroke-width:3;
+}
+
+.bar-nagano.top {
   fill: coral;
+}
+.bar-nagano.bottom {
+  fill:none;
+  stroke:coral;
+  stroke-width:3;
 }
 
 
@@ -118,11 +132,6 @@ hr.article_hr {
   font-weight: 200;
  }
 
- .prefectly{
-    width: 300px;     /* width and font size must match */
-    font-size: 300px; /*width and font size must match */
-    color: #f0f0f0;
-}
 .info {
   margin-top: -23px;
   margin-bottom: 35px;
@@ -137,6 +146,26 @@ hr.article_hr {
 .change-btn {
   margin-top:-25px;
   margin-bottom:10px;
+}
+
+button#tokyo-more {
+  display: block;
+}
+button#sapporo-more {
+  display: block;
+}
+
+button#nagano-more {
+  display: block;
+} 
+
+div#tokyo-change {
+  display: none;
+}
+div#sapporo-change {
+  display: none;
+}
+div#nagano-change {
   display: none;
 }
 /*.bottom {
