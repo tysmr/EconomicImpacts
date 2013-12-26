@@ -301,6 +301,7 @@ $('div#tokyo-svg').on('click', function() {
   // changeData('/data/tokyo_5degree.csv');
   if(!$('svg.tokyo_graph').size() > 0){
     changeCityData('/data/tokyo_5degree.csv',"tokyo");
+    changeCityData('/data/tokyo_5ratio.csv',"tokyo");
   }
 });
 $('div#sapporo-svg').on('click', function() {
@@ -308,6 +309,7 @@ $('div#sapporo-svg').on('click', function() {
   if(!$('svg.sapporo_graph').size() > 0){
   // changeData('/data/sapporo_5degree.csv');
     changeCityData('/data/sapporo_5degree.csv',"sapporo");
+    changeCityData('/data/sapporo_5ratio.csv',"sapporo");
   }
 });
 $('div#nagano-svg').on('click', function() {
@@ -315,5 +317,6 @@ $('div#nagano-svg').on('click', function() {
   // changeData('/data/nagano_5degree.csv');
   if(!$('svg.nagano_graph').size() > 0){
     changeCityData('/data/nagano_5degree.csv',"nagano");
+    changeCityData('/data/nagano_5ratio.csv',"nagano");
   }
 });
