@@ -372,8 +372,10 @@ img {
 }
 
 hr {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  /*margin-top: 20px;
+  margin-bottom: 20px;*/
+  margin-top: 13px;
+  margin-bottom: 13px;
   border: 0;
   /*border-top: 1px solid #eeeeee;*/
   border-top: 1px solid darkblue;
@@ -3374,7 +3376,7 @@ input[type="button"].btn-block {
 .btn-group,
 .btn-group-vertical {
   position: relative;
-  display: inline-block;
+  /*display: inline-block;*/
   vertical-align: middle;
 }
 
@@ -4920,7 +4922,8 @@ a.list-group-item.active > .badge,
 .jumbotron {
   padding: 30px;
   margin-bottom: 30px;
-  font-size: 21px;
+  /*font-size: 21px;*/
+  font-size: 16px;
   font-weight: 200;
   line-height: 2.1428571435;
   color: inherit;
@@ -4942,8 +4945,8 @@ a.list-group-item.active > .badge,
 
 @media screen and (min-width: 768px) {
   .jumbotron {
-    padding-top: 48px;
-    padding-bottom: 48px;
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
   .container .jumbotron {
     padding-right: 60px;
@@ -4951,7 +4954,7 @@ a.list-group-item.active > .badge,
   }
   .jumbotron h1 {
     /*font-size: 63px;*/
-    font-size: 53px;
+    font-size: 48px;
   }
 }
 
@@ -5734,8 +5737,8 @@ body.modal-open,
     right: auto;
     left: 50%;
     width: 600px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
   .modal-content {
     -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);

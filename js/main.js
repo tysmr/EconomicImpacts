@@ -3,7 +3,11 @@ var tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function(d) {
-      return "<strong>金額:</strong> <span style='color:red'>" + d.value + "</span><strong>円</strong>";
+      var str;
+      if(Math.abs(d.value) < 200){
+        str = "<strong>比率:</strong> <span style='color:red'>" + d.value + "</span><strong>％</strong>";
+      }else str = "<strong>金額:</strong> <span style='color:red'>" + d.value + "</span><strong>億円</strong>";
+      return str;
     });
     var legend_tokyo = [{label:"推定値:1959-1968",value:716767.55,color:"#eee"},{label:"実績値:1959-1968",value:887124.40,color:"gold"}];
     var legend_sapporo = [{label:"推定値:1966-1975",value:434097.75,color:"#eee"},{label:"実績値:1966-1975",value:800179.50,color:"silver"}];
@@ -21,6 +25,14 @@ function addForcedCircle(targetDOM, width, height, legend){
   var vis = d3.select(targetDOM).append("svg:svg").attr("width", width).attr("height", height)
   .on('mouseover', function(){ d3.select(targetDOM).style({"background-color":'#eee'})})
   .on('mouseout', function(){ d3.select(targetDOM).style({"background-color":'white'})});
+  
+  // vis.append("g").append("text")
+  // .attr("transform","translate("+(width-25)+",25)")
+  // .text("単位:10億円")
+  // .style("text-anchor","end")
+  // .style("font-weight", "bold");
+  
+  vis.call(tip);
 
   var nodes = [];
   var labelAnchors = [];
@@ -79,7 +91,9 @@ function addForcedCircle(targetDOM, width, height, legend){
   .attr("r", function(d, i){ return Math.sqrt(d.value/700);})
   .style("fill", function(d, i){return d.color;})
   .style("stroke", "#FFF")
-  .style("stroke-width", 3);
+  .style("stroke-width", 3)
+  .on('mouseover', tip.show)
+  .on('mouseout', tip.hide);
   node.call(force.drag);
 
   // d3.csv("/data/sumdata.csv", function(error, data) {
@@ -119,6 +133,18 @@ function addForcedCircle(targetDOM, width, height, legend){
       return "translate(" + d.x + "," + d.y + ")";
     });
   }
+  // vis.append("g").append("text")
+  // .attr("transform","translate("+(width-15)+",15)")
+  // .text("単位:10億円")
+  // .style("text-anchor","end")
+  // .style("font-weight", "bold");
+
+  vis.append("g").append("text")
+  .attr("transform","translate(15,15)")
+  .text("産業全体の実績値と推計値[単位:10億円]")
+  .style("font-size",12)
+  .style("text-anchor","start")
+  .style("font-weight", "bold");
 
   force.on("tick", function() {
 
@@ -151,11 +177,11 @@ function addForcedCircle(targetDOM, width, height, legend){
 }
 
 
-function changeCityData(data, city){
+function changeCityData(data, city, style){
   	var city_margin = {top: 30, right: 10, bottom: 10, left: 10};
   	
   	var city_svg = d3.select('div#'+city+'-svg').append("svg")
-    .attr("class", city+"_graph")
+    .attr("class", city+"_"+style+"_graph")
   	.attr("width","100%")
   	.attr("height","400")
   	.append("g")
@@ -205,84 +231,100 @@ function changeCityData(data, city){
       .style("text-anchor", "end")
       .text("分類");
 
+  city_svg.append("g")
+    .attr("transform", "translate(100,20)")
+    .append('div')
+    .attr("class","btn-group")
+    .append('button')
+    .attr("class", "btn btn-default")
+    .text("金額")
+    // .append("button")
+    // .attr("class", "btn btn-default")
+    // .text("比率");
+
+    // .offset([10,0])
+    // .html(function(d){
+    //   return '<div class="btn-group"><button type="button" class="btn btn-default">金額</button><button type="button" class="btn btn-default">比率</button></div>'
+    // });
+
   });
 
 }
 
-function initLoadData(data){
-  d3.csv(data, type, function(error, data) {
-  x.domain(d3.extent(data, function(d) { return d.scale; })).nice();
-  y.domain(data.map(function(d) { return d.name; }));
+// function initLoadData(data){
+//   d3.csv(data, type, function(error, data) {
+//   x.domain(d3.extent(data, function(d) { return d.scale; })).nice();
+//   y.domain(data.map(function(d) { return d.name; }));
 
-  svg.selectAll(".bar")
-      .data(data)
-      .enter().append("rect")
-      .attr("class", function(d) { return d.value < 0 ? "bar negative" : "bar positive"; })
-      .attr("x", function(d) { 
-        var _x = x(Math.min(0, d.value));
-        yAxisStartPoint.push(_x);
-        return _x; 
-      })
-      .attr("y", function(d) { return y(d.name); })
-      .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
-      .attr("height", y.rangeBand())
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide);
+//   svg.selectAll(".bar")
+//       .data(data)
+//       .enter().append("rect")
+//       .attr("class", function(d) { return d.value < 0 ? "bar negative" : "bar positive"; })
+//       .attr("x", function(d) { 
+//         var _x = x(Math.min(0, d.value));
+//         yAxisStartPoint.push(_x);
+//         return _x; 
+//       })
+//       .attr("y", function(d) { return y(d.name); })
+//       .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
+//       .attr("height", y.rangeBand())
+//       .on('mouseover', tip.show)
+//       .on('mouseout', tip.hide);
 
-  svg.append("g")
-      .attr("class", "x axis")
-      .call(xAxis);
+//   svg.append("g")
+//       .attr("class", "x axis")
+//       .call(xAxis);
 
-  svg.append("g")
-      .attr("class", "y axis")
-      .attr("transform", "translate("+yAxisStartPoint[0]+",0)")
-      .call(yAxis)
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Category");
+//   svg.append("g")
+//       .attr("class", "y axis")
+//       .attr("transform", "translate("+yAxisStartPoint[0]+",0)")
+//       .call(yAxis)
+//       .append("text")
+//       .attr("transform", "rotate(-90)")
+//       .attr("y", 6)
+//       .attr("dy", ".71em")
+//       .style("text-anchor", "end")
+//       .text("Category");
 
-  });
-}
+//   });
+// }
 
-function changeData(data){
-  console.log("----------");
-  d3.csv(data, type, function(error, data) {
-  x.domain(d3.extent(data, function(d) { return d.scale; })).nice();
-  y.domain(data.map(function(d) { return d.name; }));
-  // svg.selectAll("g").remove();
+// function changeData(data){
+//   console.log("----------");
+//   d3.csv(data, type, function(error, data) {
+//   x.domain(d3.extent(data, function(d) { return d.scale; })).nice();
+//   y.domain(data.map(function(d) { return d.name; }));
+//   // svg.selectAll("g").remove();
 
-  svg.selectAll(".bar")
-      .data(data)
-    // .enter().append("rect")
-      .attr("class", function(d) { console.log(d.value);return d.value < 0 ? "bar negative" : "bar positive"; })
-      .attr("x", function(d) { return x(Math.min(0, d.value));
-      })
-      .attr("y", function(d) { return y(d.name); })
-      .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
-      .attr("height", y.rangeBand())
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide);
+//   svg.selectAll(".bar")
+//       .data(data)
+//     // .enter().append("rect")
+//       .attr("class", function(d) { console.log(d.value);return d.value < 0 ? "bar negative" : "bar positive"; })
+//       .attr("x", function(d) { return x(Math.min(0, d.value));
+//       })
+//       .attr("y", function(d) { return y(d.name); })
+//       .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
+//       .attr("height", y.rangeBand())
+//       .on('mouseover', tip.show)
+//       .on('mouseout', tip.hide);
 
-  svg.append("g")
-      .attr("class", "x axis")
-      .call(xAxis);
+//   svg.append("g")
+//       .attr("class", "x axis")
+//       .call(xAxis);
 
-  svg.append("g")
-      .attr("class", "y axis")
-      .attr("transform", "translate("+yAxisStartPoint[0]+",0)")
-      .call(yAxis)
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Category");
+//   svg.append("g")
+//       .attr("class", "y axis")
+//       .attr("transform", "translate("+yAxisStartPoint[0]+",0)")
+//       .call(yAxis)
+//       .append("text")
+//       .attr("transform", "rotate(-90)")
+//       .attr("y", 6)
+//       .attr("dy", ".71em")
+//       .style("text-anchor", "end")
+//       .text("Category");
 
-  });
-}
+//   });
+// }
 
 function type(d) {
   d.value = +d.value;
@@ -296,27 +338,89 @@ $( 'input[name="gorin"]:radio' ).change( function() {
   
 });
 
+$('button#tokyo-more').on('click',function() {
+  if(!$('svg.tokyo_money_graph').size() > 0){
+    changeCityData('/data/tokyo_5degree.csv',"tokyo", "money");
+    $('button#tokyo-more').css("display","none");
+    $('div#tokyo-change').css("display","block")
+  }
+});
+$('button#sapporo-more').on('click',function() {
+  if(!$('svg.sapporo_money_graph').size() > 0){
+    changeCityData('/data/sapporo_5degree.csv',"sapporo", "money");
+    $('button#sapporo-more').css("display","none");
+    $('div#sapporo-change').css("display","block")
+  }
+});
+$('button#nagano-more').on('click',function() {
+  if(!$('svg.nagano_money_graph').size() > 0){
+    changeCityData('/data/nagano_5degree.csv',"nagano", "money");
+    $('button#nagano-more').css("display","none");
+    $('div#nagano-change').css("display","block")
+  }
+});
+
+
 $('div#tokyo-svg').on('click', function() {
-  console.log($(this).attr('id'));
-  // changeData('/data/tokyo_5degree.csv');
-  if(!$('svg.tokyo_graph').size() > 0){
-    changeCityData('/data/tokyo_5degree.csv',"tokyo");
-    changeCityData('/data/tokyo_5ratio.csv',"tokyo");
+  if(!$('svg.tokyo_money_graph').size() > 0){
+    changeCityData('/data/tokyo_5degree.csv',"tokyo", "money");
   }
 });
 $('div#sapporo-svg').on('click', function() {
-  console.log($(this).attr('id'));
-  if(!$('svg.sapporo_graph').size() > 0){
+  if(!$('svg.sapporo_money_graph').size() > 0){
   // changeData('/data/sapporo_5degree.csv');
-    changeCityData('/data/sapporo_5degree.csv',"sapporo");
-    changeCityData('/data/sapporo_5ratio.csv',"sapporo");
+    changeCityData('/data/sapporo_5degree.csv',"sapporo", "money");
+    // changeCityData('/data/sapporo_5ratio.csv',"sapporo");
   }
 });
 $('div#nagano-svg').on('click', function() {
-  console.log($(this).attr('id'));
   // changeData('/data/nagano_5degree.csv');
-  if(!$('svg.nagano_graph').size() > 0){
-    changeCityData('/data/nagano_5degree.csv',"nagano");
-    changeCityData('/data/nagano_5ratio.csv',"nagano");
+  if(!$('svg.nagano_money_graph').size() > 0){
+    changeCityData('/data/nagano_5degree.csv',"nagano", "money");
+    // changeCityData('/data/nagano_5ratio.csv',"nagano");
   }
 });
+
+
+$('button#tokyo-money-change').on('click', function() {
+  if($('svg.tokyo_ratio_graph').size() > 0){
+    $('svg.tokyo_ratio_graph').remove();
+    changeCityData('/data/tokyo_5degree.csv',"tokyo", "money");
+  }
+});
+
+$('button#tokyo-ratio-change').on('click', function() {
+  if($('svg.tokyo_money_graph').size() > 0){
+    $('svg.tokyo_money_graph').remove();
+    changeCityData('/data/tokyo_5ratio.csv',"tokyo", "ratio");
+  }
+});
+
+$('button#sapporo-money-change').on('click', function() {
+  if($('svg.sapporo_ratio_graph').size() > 0){
+    $('svg.sapporo_ratio_graph').remove();
+    changeCityData('/data/sapporo_5degree.csv',"sapporo", "money");
+  }
+});
+
+$('button#sapporo-ratio-change').on('click', function() {
+  if($('svg.sapporo_money_graph').size() > 0){
+    $('svg.sapporo_money_graph').remove();
+    changeCityData('/data/sapporo_5ratio.csv',"sapporo", "ratio");
+  }
+});
+
+$('button#nagano-money-change').on('click', function() {
+  if($('svg.nagano_ratio_graph').size() > 0){
+    $('svg.nagano_ratio_graph').remove();
+    changeCityData('/data/nagano_5degree.csv',"nagano", "money");
+  }
+});
+
+$('button#nagano-ratio-change').on('click', function() {
+  if($('svg.nagano_money_graph').size() > 0){
+    $('svg.nagano_money_graph').remove();
+    changeCityData('/data/nagano_5ratio.csv',"nagano", "ratio");
+  }
+});
+

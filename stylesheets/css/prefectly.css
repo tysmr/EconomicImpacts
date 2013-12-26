@@ -1,0 +1,254 @@
+/** Prefectly setup
+*************************************/
+/*yahoo reset http://developer.yahoo.com/yui/reset/*/
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+fieldset, img {
+  border: 0;
+}
+
+address, caption, cite, code, dfn, em, strong, th, var {
+  font-style: normal;
+  font-weight: normal;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+caption, th {
+  text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+q:before, q:after {
+  content: '';
+}
+
+abbr, acronym {
+  border: 0;
+}
+
+/*end reset*/
+body {
+  width: 300px;
+  margin: 0 auto;
+  font-family: "helvetica neue",arial,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding: 0 0 40px;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 24px 0 6px;
+  color: #9d9d9d;
+}
+
+@font-face {
+  font-family: 'prefectly-webfont';
+  src: url("../font/prefectly-webfont.eot");
+  src: url("../font/prefectly-webfont.eot?#iefix") format("embedded-opentype"), url("../font/prefectly-webfont.woff") format("woff"), url("../font/prefectly-webfont.ttf") format("truetype"), url("../font/prefectly-webfont.svg#testfontRegular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.prefectly {
+  display: block;
+  width: 300px;
+  margin: 0 auto;
+  padding: 0;
+  font: normal normal 300px/100% "prefectly-webfont";
+  font-size-adjust: none;
+  -webkit-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  -ms-text-rendering: optimizeLegibility;
+  -o-text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
+  -moz-font-feature-settings: "liga=1";
+  -ms-font-feature-settings: "liga" 1;
+  -ms-font-feature-settings: "liga", "dlig";
+  overflow: hidden;
+  list-style: none;
+}
+.prefectly li {
+  float: left;
+  margin: 0 0 0 -100%;
+  position: relative;
+  left: 101%;
+  width: 100%;
+  cursor: default;
+  -webkit-transition: all 1s ease-in;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/** Style customizations
+*************************************/
+.prefectly {
+  background: #f6f6f6;
+  border-radius: 10px;
+  border-top: 1px solid #e4e4e4;
+  color: #dddddd;
+}
+
+#plain {
+  color: #666;
+}
+
+#visited .am,
+#visited .cb,
+#visited .eh,
+#visited .fs,
+#visited .gf,
+#visited .gm,
+#visited .hk,
+#visited .hs,
+#visited .ig,
+#visited .ik,
+#visited .ka,
+#visited .kg,
+#visited .kn,
+#visited .kt,
+#visited .ng,
+#visited .nr,
+#visited .ns,
+#visited .os,
+#visited .oy,
+#visited .so,
+#visited .st,
+#visited .tk,
+#visited .wy,
+#visited .yg {
+  color: #52a3cc;
+}
+
+#region .hk {
+  color: #e58a8a;
+}
+#region .am,
+#region .at,
+#region .fs,
+#region .it,
+#region .mg,
+#region .ym {
+  color: #e5ac73;
+}
+#region .cb,
+#region .gm,
+#region .ig,
+#region .kn,
+#region .st,
+#region .tg,
+#region .tk {
+  color: #e5e55c;
+}
+#region .ac,
+#region .fk,
+#region .gf,
+#region .ik,
+#region .ng,
+#region .nn,
+#region .so,
+#region .ty,
+#region .yn {
+  color: #7acc7a;
+}
+#region .hg,
+#region .kt,
+#region .me,
+#region .nr,
+#region .os,
+#region .sg,
+#region .wk {
+  color: #7acccc;
+}
+#region .hs,
+#region .oy,
+#region .sn,
+#region .tt,
+#region .yg {
+  color: #7a96cc;
+}
+#region .to,
+#region .ka,
+#region .eh,
+#region .ko {
+  color: #a37acc;
+}
+#region .fo,
+#region .kg,
+#region .km,
+#region .mz,
+#region .ns,
+#region .on,
+#region .ot,
+#region .sa {
+  color: #cc7abe;
+}
+
+#eq .mg {
+  color: #e50000;
+}
+#eq .cb,
+#eq .fs,
+#eq .gm,
+#eq .ig,
+#eq .it,
+#eq .st,
+#eq .tg {
+  color: #e56000;
+}
+#eq .am,
+#eq .at,
+#eq .kn,
+#eq .ng,
+#eq .nn,
+#eq .so,
+#eq .tk,
+#eq .ym,
+#eq .yn {
+  color: #e59900;
+}
+#eq .ac,
+#eq .gf,
+#eq .hk {
+  color: #f2de00;
+}
+#eq .fk,
+#eq .hg,
+#eq .ik,
+#eq .kt,
+#eq .me,
+#eq .nr,
+#eq .os,
+#eq .sg,
+#eq .ty {
+  color: #73e500;
+}
+#eq .km,
+#eq .ko,
+#eq .oy,
+#eq .sa,
+#eq .sn,
+#eq .to,
+#eq .tt,
+#eq .wk {
+  color: #00e5bf;
+}

@@ -10,5 +10,7 @@ handlers:
   static_dir: data
 - url: /js
   static_dir: js
+- url: /fonts
+  static_dir: fonts
 - url: /.*
   script: economic_impact.py

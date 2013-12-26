@@ -8,9 +8,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>東京・札幌・長野、五輪の業界別経済効果～五輪でもうかる人、もうからない人～</title>
-
+    <title>五輪業界別経済効果</title>
+    <!-- <link rel="stylesheet" href="/stylesheets/css/prefectly.css"> -->
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+    
     <!-- Bootstrap core CSS -->
     <link href="/stylesheets/bootstrap.css" rel="stylesheet">
 
@@ -50,9 +51,11 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>東京・札幌・長野、五輪の業界別経済効果</h1>
-        <h3>～五輪でもうかる人、もうからない人～</h3>
-        <p>　２０２０年東京五輪開催が決定した。東京都はその経済波及効果を２兆９６００億円と見積もっている（※１）。報道によれば、約１５０兆円とするエコノミストもいる。<br/>　五輪開催に伴う経済効果は開催のたびに語られるテーマだが、実際にはどの業界へ波及しているのだろうか。過去に日本で開催された3回の五輪の前後で、実質GDPが伸びた業界（もうかる人）・落ち込んだ業界（もうからない人）を調べた。<br/>　グラフでは業界別に実質GDPがいくら増えたか（金額ベース）、どの程度増えたか（比率ベース）を見ることができる。算出方法は文末に掲載した。</p>
+        <h1>五輪でもうかる人・もうからない人</h1>
+        <h2>〜東京・札幌・長野、五輪の業界別経済効果〜</h2>
+        <p>　2020年東京五輪開催が決定した。東京都はその経済波及効果を2兆9600億円と見積もっている（※1）。報道によれば、約150兆円とするエコノミストもいる。<br/>　五輪開催に伴う経済効果は開催のたびに語られるテーマだが、実際にはどの業界へ波及しているのだろうか。過去に日本で開催された3回の五輪の前後で、実質GDPが伸びた業界（もうかる人）・落ち込んだ業界（もうからない人）を調べた。<br/>　グラフでは業界別に実質GDPがいくら増えたか（金額ベース）、どの程度増えたか（比率ベース）を見ることができる。算出方法は文末に掲載した。</p>
+
+
         
       </div>
     </div>
@@ -64,15 +67,21 @@
           <h2 style="text-align:left;">夏季・東京五輪（1964）</h2>
           <h4>（分析対象：1959～1968年）</h4>
           <p style="height:8.5em;">1940年大会の開催権を返上した日本及びアジア地域で初めて開催されたオリンピックで、また有色人種国家における史上初のオリンピックでもある。歴史的には、第二次世界大戦で敗戦し急速な復活を遂げた日本が、再び国際社会の中心に復帰するシンボル的な意味を持った。(wikipediaより) </p>
-          <p><a class="btn btn-default" href="http://ja.wikipedia.org/wiki/%E6%9D%B1%E4%BA%AC%E3%82%AA%E3%83%AA%E3%83%B3%E3%83%94%E3%83%83%E3%82%AF" role="button">More Info &raquo;</a></p>
-          <hr>
+          <p class="info"><a class="btn btn-default pull-right" href="http://ja.wikipedia.org/wiki/%E6%9D%B1%E4%BA%AC%E3%82%AA%E3%83%AA%E3%83%B3%E3%83%94%E3%83%83%E3%82%AF" role="button">More Info &raquo;</a></p>
+          <hr class="article_hr">
           <div class="gorin" align="center">
-            <div id="tokyo-svg">
+            <div id="tokyo-svg"></div>
+            <button type="button" id="tokyo-more" class="btn btn-default pull-right more-btn">
+              <span class="glyphicon glyphicon-chevron-down"></span>
+            </button>
+            <div id="tokyo-change" class="btn-group pull-right change-btn">
+              <button type="button" class="btn btn-default" id="tokyo-money-change">金額</button>
+              <button type="button" class="btn btn-default" id="tokyo-ratio-change">比率</button>
             </div>
-            <hr>
-          <p style="text-align:left;">　金額ベースと比率ベースの上位３位には、製造業と卸売・小売業が共通してランクイン。五輪開催をはさみ、モノへの需要が飛躍的に高まったことが読み取れる。需要金額ベース３位の建設業は比率ベースでも６位。
-　一方、鋼業とサービス業（民間※３）は金額、比率のワースト１、２位を占めた。高度成長期のさなかに、金額・比率ともにマイナスとなったのはこの２業種だけだ。<br>
-　なお、建設業は五輪決定の翌年である１９６０年の実質GDP伸び率が27.7%と、産業全体（12.3%）と比較しても突出しており、集中的な投資が行われたことがわかる。</p>
+            <hr class="article_hr">
+          <p style="text-align:left;">　金額ベースと比率ベースの上位３位には、製造業と卸売・小売業が共通してランクイン。五輪開催をはさみ、モノへの需要が飛躍的に高まったことが読み取れる。需要金額ベース3位の建設業は比率ベースでも6位。
+　一方、鋼業とサービス業（民間※3）は金額、比率のワースト1、2位を占めた。高度成長期のさなかに、金額・比率ともにマイナスとなったのはこの2業種だけだ。<br>
+　なお、建設業は五輪決定の翌年である1960年の実質GDP伸び率が27.7%と、産業全体（12.3%）と比較しても突出しており、集中的な投資が行われたことがわかる。</p>
             <!-- <svg width="120" height="120" 
            viewPort="0 0 120 120" version="1.1"
            xmlns="http://www.w3.org/2000/svg">
@@ -85,13 +94,20 @@
           <h2>冬季・札幌五輪（1972）</h2>
           <h4>（分析対象：1966～1975年）</h4>
           <p style="height:8.5em;">札幌オリンピック（さっぽろオリンピック）は、日本の北海道札幌市で1972年2月3日から2月13日まで行われた冬季オリンピック。日本およびアジアで初めて開催された冬季オリンピックである。(wikipediaより) </p>
-          <p><a class="btn btn-default" href="http://ja.wikipedia.org/wiki/%E6%9C%AD%E5%B9%8C%E3%82%AA%E3%83%AA%E3%83%B3%E3%83%94%E3%83%83%E3%82%AF" role="button">More Info &raquo;</a></p>
-          <hr>
+          <p class="info"><a class="btn btn-default pull-right" href="http://ja.wikipedia.org/wiki/%E6%9C%AD%E5%B9%8C%E3%82%AA%E3%83%AA%E3%83%B3%E3%83%94%E3%83%83%E3%82%AF" role="button">More Info &raquo;</a></p>
+          <hr class="article_hr">
           <div class="gorin" align="center">
             <div id="sapporo-svg">
             </div>
-            <hr>
-            <p style="text-align:left;">　金額ベースでは製造業が１位、卸売・小売業が２位で前回東京開催時と同様の結果となった。しかし、製造業は比率ベースで１０位にとどまっており、金額ベースでの１位は業界の規模の大きさが背景にあるとみられる。この点を考慮すれば、卸売・小売業や民間サービス業、建設業といった金額、比率ともに５位以内に入る業界が特に潤ったと言えそうだ。<br>　比率ベース１位の政府による電気・ガス・水道業は金額ベースでは最下位だったことから、経済効果としての実質GDPへの貢献は少なかったと判断した。</p>
+            <button type="button" id="sapporo-more" class="btn btn-default pull-right more-btn">
+              <span class="glyphicon glyphicon-chevron-down"></span>
+            </button>
+            <div id="sapporo-change" class="btn-group pull-right change-btn">
+              <button type="button" class="btn btn-default" id="sapporo-money-change">金額</button>
+              <button type="button" class="btn btn-default" id="sapporo-ratio-change">比率</button>
+            </div>
+            <hr class="article_hr">
+            <p style="text-align:left;">　金額ベースでは製造業が1位、卸売・小売業が２位で前回東京開催時と同様の結果となった。しかし、製造業は比率ベースで10位にとどまっており、金額ベースでの１位は業界の規模の大きさが背景にあるとみられる。この点を考慮すれば、卸売・小売業や民間サービス業、建設業といった金額、比率ともに1位以内に入る業界が特に潤ったと言えそうだ。<br>　比率ベース1位の政府による電気・ガス・水道業は金額ベースでは最下位だったことから、経済効果としての実質GDPへの貢献は少なかったと判断した。</p>
 
             <!-- <svg width="120" height="120" 
            viewPort="0 0 120 120" version="1.1"
@@ -105,13 +121,20 @@
           <h2>冬季・長野五輪（1998）</h2>
           <h4>（分析対象：1991～2000年）</h4>
           <p style="height:8.5em;">長野オリンピック（ながのオリンピック）は、1998年2月7日から2月22日まで、日本の長野市とその周辺を会場にして開催された、20世紀最後の冬季オリンピックである。冬季オリンピックとしては、最も南に位置する都市で開催された。(wikipediaより) </p>
-          <p><a class="btn btn-default" href="#" role="button">More Info &raquo;</a></p>
-          <hr>
+          <p class="info"><a class="btn btn-default pull-right" href="#" role="button">More Info &raquo;</a></p>
+          <hr class="article_hr">
           <div class="gorin" align="center">
             <div id="nagano-svg">
             </div>
-            <hr>
-            <p style="text-align:left;">　金額・比率ベースともに卸売・小売業がトップ。金額で３位、比率で４位の電気・ガス・水道業（民間※３）や、金額で５位、比率で３位の対家計民間非営利サービス生産者による教育（私立学校など）の堅調さがうかがえる。<br>　一方、東京、札幌と上位をキープしていた製造業は、金額、比率ともに下から２番目と大きく後退した。バブル崩壊後の建設不況を、五輪というイベントだけでははね除けられなかったと言えるのかもしれないが、これにはより詳細な分析が必要であり、今後の課題としたい。製造業も比率が-10.87%で下から４位番目だった。<br>　全体的に東京、札幌よりもマイナスに転じた業界が多く、全１５業界のうち９位以下は金額、比率ともにマイナスとなった。</p>
+            <button type="button" id="nagano-more" class="btn btn-default pull-right more-btn">
+              <span class="glyphicon glyphicon-chevron-down"></span>
+            </button>
+            <div id="nagano-change" class="btn-group pull-right change-btn">
+              <button type="button" class="btn btn-default" id="nagano-money-change">金額</button>
+              <button type="button" class="btn btn-default" id="nagano-ratio-change">比率</button>
+            </div>
+            <hr class="article_hr">
+            <p style="text-align:left;">　金額・比率ベースともに卸売・小売業がトップ。金額で３位、比率で４位の電気・ガス・水道業（民間※3）や、金額で5位、比率で3位の対家計民間非営利サービス生産者による教育（私立学校など）の堅調さがうかがえる。<br>　一方、東京、札幌と上位をキープしていた製造業は、金額、比率ともに下から2番目と大きく後退した。バブル崩壊後の建設不況を、五輪というイベントだけでははね除けられなかったと言えるのかもしれないが、これにはより詳細な分析が必要であり、今後の課題としたい。製造業も比率が-10.87%で下から4番目だった。<br>　全体的に東京、札幌よりもマイナスに転じた業界が多く、全15業界のうち9位以下は金額、比率ともにマイナスとなった。</p>
             <!-- <svg width="120" height="120" 
            viewPort="0 0 120 120" version="1.1"
            xmlns="http://www.w3.org/2000/svg">
@@ -121,17 +144,17 @@
         </div>
       </div>
 
-      <hr>
+      <hr class="article_hr">
       <div class="row">
       <div class="col-md-12">
-        <p>　以上が、過去３回の五輪における業界別経済効果の概況だ。今回の結果は、高度成長期（一般的に1950年代半ば～73年といわれる）やアジア金融危機（1997～98年）といった、経済全体の大きな変動の影響を十分排除できていない。しかし、それぞれの五輪で「もうかる人」がいれば、「もうからない人」もいることは、きわめて粗い分析ながらも見えてきたのではないだろうか。産經新聞によると、2020東京五輪の経済効果は「業種別では飲食店や宿泊、広告などのサービス業が6510億円と最も波及効果が大きく、建設業の4745億円、小売業などの商業が2779億円で続く」という（※２）。サービス業、建設業、商業で予想される経済効果の約半分を占めており、残り半分をその他の業界で取り合う形だ。その他の業界は、この好機をとらえる一層の努力が必要になりそうだ。</p>
+        <p>　以上が、過去3回の五輪における業界別経済効果の概況だ。今回の結果は、高度成長期（一般的に1950年代半ば～73年といわれる）やアジア金融危機（1997～98年）といった、経済全体の大きな変動の影響を十分排除できていない。しかし、それぞれの五輪で「もうかる人」がいれば、「もうからない人」もいることは、きわめて粗い分析ながらも見えてきたのではないだろうか。産經新聞によると、2020東京五輪の経済効果は「業種別では飲食店や宿泊、広告などのサービス業が6510億円と最も波及効果が大きく、建設業の4745億円、小売業などの商業が2779億円で続く」という（※２）。サービス業、建設業、商業で予想される経済効果の約半分を占めており、残り半分をその他の業界で取り合う形だ。その他の業界は、この好機をとらえる一層の努力が必要になりそうだ。</p>
       </div>
       <!-- <div class="col-md-4">
         
 
       </div> -->
     </div>
-      <hr>
+      <hr class="article_hr">
       <label>経済効果算出方法について</label>
         <p>各五輪で開催決定前の10年間の実質GDP実績値から決定後10年間の値を推定し、決定後10年間の推定値と実績値との差を五輪効果とみなした。</p>
 
@@ -140,9 +163,9 @@
         <p>長野：<a href="http://www.esri.cao.go.jp/jp/sna/data/data_list/kakuhou/files/h15/17annual_report_j.html">http://www.esri.cao.go.jp/jp/sna/data/data_list/kakuhou/files/h15/17annual_report_j.html</a></p>
 
       <label>脚注</label>
-      <p>※１：http://www.metro.tokyo.jp/INET/OSHIRASE/2012/06/20m67800.htm</p>
-      <p>※２：http://sankei.jp.msn.com/economy/news/130910/biz13091011280004-n1.htm</p>
-      <p>※３：民間によるもののほかに、政府によるものが別途計上されているため</p>
+      <p class="caption">※1：http://www.metro.tokyo.jp/INET/OSHIRASE/2012/06/20m67800.htm</p>
+      <p class="caption">※3：http://sankei.jp.msn.com/economy/news/130910/biz13091011280004-n1.htm</p>
+      <p class="caption">※3：民間によるもののほかに、政府によるものが別途計上されているため</p>
       <hr>
 
       <footer>

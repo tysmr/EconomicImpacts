@@ -109,6 +109,36 @@ header {
  border-color: #000066;
 }
 
+hr.article_hr {
+  clear: both;
+  border-top:dotted 1px #000066;
+}
+
+ .caption {
+  font-weight: 200;
+ }
+
+ .prefectly{
+    width: 300px;     /* width and font size must match */
+    font-size: 300px; /*width and font size must match */
+    color: #f0f0f0;
+}
+.info {
+  margin-top: -23px;
+  margin-bottom: 35px;
+  padding-bottom: 10px;
+}
+
+.more-btn {
+  margin-top:-32px;
+  margin-bottom:10px;
+}
+
+.change-btn {
+  margin-top:-25px;
+  margin-bottom:10px;
+  display: none;
+}
 /*.bottom {
   fill:url(#linepattern);
 }*/
