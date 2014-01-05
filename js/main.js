@@ -148,13 +148,12 @@ function addForcedCircle(targetDOM, width, height, legend){
 
   vis.append("g").append("text")
   .attr("transform","translate(10,185)")
-  .text(((legend[1].value/legend[0].value)-1)*100+"%")
+  .text(aroundNum((legend[1].value/legend[0].value-1)*100)+"%")
   .style("font-size",12)
   .style("text-anchor","start")
   .style("font-weight", "bold");
 
   force.on("tick", function() {
-
     force2.start();
     node.call(updateNode);
     anchorNode.each(function(d, i) {
@@ -181,6 +180,12 @@ function addForcedCircle(targetDOM, width, height, legend){
     anchorLink.call(updateLink);
 
   });
+}
+
+function aroundNum(num) {
+  var _num = num * 100;
+  _num = Math.round(_num) / 100;
+  return _num;
 }
 
 
@@ -347,22 +352,22 @@ $( 'input[name="gorin"]:radio' ).change( function() {
 
 $('button#tokyo-more').on('click',function() {
   // if(!$('svg.tokyo_money_graph').size() > 0){
-    $('button#tokyo-more').css("display","none");
-    $('div#tokyo-change').css("display","block");
+    $('button#tokyo-more').toggle();
+    $('div#tokyo-change').toggle();
     changeCityData('/data/tokyo_5degree.csv',"tokyo", "money");
   // }
 });
 $('button#sapporo-more').on('click',function() {
   // if(!$('svg.sapporo_money_graph').size() > 0){
-    $('button#sapporo-more').css("display","none");
-    $('div#sapporo-change').css("display","block");
+    $('button#sapporo-more').toggle();
+    $('div#sapporo-change').toggle();
     changeCityData('/data/sapporo_5degree.csv',"sapporo", "money");
   // }
 });
 $('button#nagano-more').on('click',function() {
   // if(!$('svg.nagano_money_graph').size() > 0){
-    $('button#nagano-more').css("display","none");
-    $('div#nagano-change').css("display","block");
+    $('button#nagano-more').toggle();
+    $('div#nagano-change').toggle();
     changeCityData('/data/nagano_5degree.csv',"nagano", "money");
   // }
 });
