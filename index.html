@@ -70,6 +70,10 @@
           <p class="info"><a class="btn btn-default pull-right" href="http://ja.wikipedia.org/wiki/%E6%9D%B1%E4%BA%AC%E3%82%AA%E3%83%AA%E3%83%B3%E3%83%94%E3%83%83%E3%82%AF" role="button">More Info &raquo;</a></p>
           <hr class="article_hr">
           <div class="gorin" align="center">
+            <!-- <div id="tokyo-all-change" class="btn-group pull-right change-btn">
+              <button type="button" class="btn btn-default" id="tokyo-all-money-change">金額</button>
+              <button type="button" class="btn btn-default" id="tokyo-all-ratio-change">比率</button>
+            </div> -->
             <div id="tokyo-svg"></div>
             <button type="button" id="tokyo-more" class="btn btn-default pull-right more-btn">
               <span class="glyphicon glyphicon-chevron-down"></span>
@@ -79,9 +83,7 @@
               <button type="button" class="btn btn-default" id="tokyo-ratio-change">比率</button>
             </div>
             <hr class="article_hr">
-          <p style="text-align:left;">　金額ベースと比率ベースの上位３位には、製造業と卸売・小売業が共通してランクイン。五輪開催をはさみ、モノへの需要が飛躍的に高まったことが読み取れる。需要金額ベース3位の建設業は比率ベースでも6位。
-　一方、鋼業とサービス業（民間※3）は金額、比率のワースト1、2位を占めた。高度成長期のさなかに、金額・比率ともにマイナスとなったのはこの2業種だけだ。<br>
-　なお、建設業は五輪決定の翌年である1960年の実質GDP伸び率が27.7%と、産業全体（12.3%）と比較しても突出しており、集中的な投資が行われたことがわかる。</p>
+          <p style="text-align:left;">　金額ベースと比率ベースの上位３位には、製造業と卸売・小売業が共通してランクイン。五輪開催をはさみ、モノへの需要が飛躍的に高まったことが読み取れる。需要金額ベース3位の建設業は比率ベースでも6位。一方、鋼業とサービス業（民間※3）は金額、比率のワースト1、2位を占めた。高度成長期のさなかに、金額・比率ともにマイナスとなったのはこの2業種だけだ。<br>なお、建設業は五輪決定の翌年である1960年の実質GDP伸び率が27.7%と、産業全体（12.3%）と比較しても突出しており、集中的な投資が行われたことがわかる。</p>
             <!-- <svg width="120" height="120" 
            viewPort="0 0 120 120" version="1.1"
            xmlns="http://www.w3.org/2000/svg">
@@ -134,7 +136,7 @@
               <button type="button" class="btn btn-default" id="nagano-ratio-change">比率</button>
             </div>
             <hr class="article_hr">
-            <p style="text-align:left;">　金額・比率ベースともに卸売・小売業がトップ。金額で3位、比率で4位の電気・ガス・水道業（民間※3）や、金額で5位、比率で3位の対家計民間非営利サービス生産者による教育（私立学校など）の堅調さがうかがえる。<br>　一方、東京、札幌と上位をキープしていた製造業は、金額、比率ともに下から2番目と大きく後退した。バブル崩壊後の建設不況を、五輪というイベントだけでははね除けられなかったと言えるのかもしれないが、これにはより詳細な分析が必要であり、今後の課題としたい。製造業も比率が-10.87%で下から4番目だった。<br>　全体的に東京、札幌よりもマイナスに転じた業界が多く、全15業界のうち9位以下は金額、比率ともにマイナスとなった。</p>
+            <p style="text-align:left;">　金額・比率ベースともに卸売・小売業がトップ。金額で3位、比率で4位の電気・ガス・水道業（民間※3）や、金額で5位、比率で3位の対家計民間非営利サービス生産者による教育（私立学校など）の堅調さがうかがえる。<br>　一方、東京、札幌と上位をキープしていた建設業は、金額、比率ともに下から2番目と大きく後退した。バブル崩壊後の建設不況を、五輪というイベントだけでははね除けられなかったと言えるのかもしれないが、これにはより詳細な分析が必要であり、今後の課題としたい。製造業も比率が-10.87%で下から4番目だった。<br>　全体的に東京、札幌よりもマイナスに転じた業界が多く、全15業界のうち9位以下は金額、比率ともにマイナスとなった。</p>
             <!-- <svg width="120" height="120" 
            viewPort="0 0 120 120" version="1.1"
            xmlns="http://www.w3.org/2000/svg">
@@ -192,6 +194,16 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46729872-1', 'economic-impacts-on-olympic.appspot.com');
+  ga('send', 'pageview');
+
+</script>
 
 </body>
 </html>

@@ -5,8 +5,8 @@ var tip = d3.tip()
     .html(function(d) {
       var str;
       if(Math.abs(d.value) < 200){
-        str = "<strong>比率:</strong> <span style='color:red'>" + d.value + "</span><strong>％</strong>";
-      }else str = "<strong>金額:</strong> <span style='color:red'>" + d.value + "</span><strong>億円</strong>";
+        str = "<strong>比率:</strong><span style='color:red'>" + d.value + "</span><strong>％</strong>";
+      }else str = "<strong>金額:</strong><span style='color:red'>" + d.value + "</span><strong>億円</strong>";
       return str;
     });
     var legend_tokyo = [{label:"推定値:1959-1968",value:716767.55,color:"#eee"},{label:"実績値:1959-1968",value:887124.40,color:"gold"}];
@@ -140,8 +140,15 @@ function addForcedCircle(targetDOM, width, height, legend){
   // .style("font-weight", "bold");
 
   vis.append("g").append("text")
-  .attr("transform","translate(15,15)")
+  .attr("transform","translate(10,15)")
   .text("産業全体の実績値と推計値[単位:10億円]")
+  .style("font-size",12)
+  .style("text-anchor","start")
+  .style("font-weight", "bold");
+
+  vis.append("g").append("text")
+  .attr("transform","translate(10,185)")
+  .text(((legend[1].value/legend[0].value)-1)*100+"%")
   .style("font-size",12)
   .style("text-anchor","start")
   .style("font-weight", "bold");
@@ -339,25 +346,25 @@ $( 'input[name="gorin"]:radio' ).change( function() {
 });
 
 $('button#tokyo-more').on('click',function() {
-  if(!$('svg.tokyo_money_graph').size() > 0){
-    changeCityData('/data/tokyo_5degree.csv',"tokyo", "money");
+  // if(!$('svg.tokyo_money_graph').size() > 0){
     $('button#tokyo-more').css("display","none");
-    $('div#tokyo-change').css("display","block")
-  }
+    $('div#tokyo-change').css("display","block");
+    changeCityData('/data/tokyo_5degree.csv',"tokyo", "money");
+  // }
 });
 $('button#sapporo-more').on('click',function() {
-  if(!$('svg.sapporo_money_graph').size() > 0){
-    changeCityData('/data/sapporo_5degree.csv',"sapporo", "money");
+  // if(!$('svg.sapporo_money_graph').size() > 0){
     $('button#sapporo-more').css("display","none");
-    $('div#sapporo-change').css("display","block")
-  }
+    $('div#sapporo-change').css("display","block");
+    changeCityData('/data/sapporo_5degree.csv',"sapporo", "money");
+  // }
 });
 $('button#nagano-more').on('click',function() {
-  if(!$('svg.nagano_money_graph').size() > 0){
-    changeCityData('/data/nagano_5degree.csv',"nagano", "money");
+  // if(!$('svg.nagano_money_graph').size() > 0){
     $('button#nagano-more').css("display","none");
-    $('div#nagano-change').css("display","block")
-  }
+    $('div#nagano-change').css("display","block");
+    changeCityData('/data/nagano_5degree.csv',"nagano", "money");
+  // }
 });
 
 
