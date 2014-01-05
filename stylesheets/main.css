@@ -168,9 +168,7 @@ div#sapporo-change {
 div#nagano-change {
   display: none;
 }
-div#tokyo-svg, div#sapporo-svg, div#nagano-svg{
-  margin-bottom: 30px;
-}
+
 /*.bottom {
   fill:url(#linepattern);
 }*/

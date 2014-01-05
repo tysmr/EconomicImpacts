@@ -354,6 +354,7 @@ $('button#tokyo-more').on('click',function() {
   // if(!$('svg.tokyo_money_graph').size() > 0){
     $('button#tokyo-more').toggle();
     $('div#tokyo-change').toggle();
+    $('div#tokyo-svg').attr("style","margin-bottom:30px;");
     changeCityData('/data/tokyo_5degree.csv',"tokyo", "money");
   // }
 });
@@ -361,6 +362,7 @@ $('button#sapporo-more').on('click',function() {
   // if(!$('svg.sapporo_money_graph').size() > 0){
     $('button#sapporo-more').toggle();
     $('div#sapporo-change').toggle();
+    $('div#sapporo-svg').attr("style","margin-bottom:30px;");
     changeCityData('/data/sapporo_5degree.csv',"sapporo", "money");
   // }
 });
@@ -368,9 +370,11 @@ $('button#nagano-more').on('click',function() {
   // if(!$('svg.nagano_money_graph').size() > 0){
     $('button#nagano-more').toggle();
     $('div#nagano-change').toggle();
+    $('div#nagano-svg').attr("style","margin-bottom:30px;");
     changeCityData('/data/nagano_5degree.csv',"nagano", "money");
   // }
 });
+
 
 
 $('div#tokyo-svg').on('click', function() {
