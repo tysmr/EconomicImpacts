@@ -147,8 +147,8 @@ function addForcedCircle(targetDOM, width, height, legend){
   .style("font-weight", "bold");
 
   vis.append("g").append("text")
-  .attr("transform","translate(10,185)")
-  .text(aroundNum((legend[1].value/legend[0].value-1)*100)+"%")
+  .attr("transform","translate(10,30)")
+  .text("実績値と推計値の比率(実績値/推計値×100)  "+aroundNum((legend[1].value/legend[0].value-1)*100)+"%")
   .style("font-size",12)
   .style("text-anchor","start")
   .style("font-weight", "bold");
